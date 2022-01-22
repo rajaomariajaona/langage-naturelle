@@ -7,8 +7,53 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    private Automate generateNumberCheckAutomate(){
+        Automate automate = new Automate();
+        State digit = new State("digit", true);
+        State digit2 = new State("digit2", true);
+        State digit3 = new State("digit3", true);
+        State exposant = new State("exposant", false);
+        State dot = new State("dot", false);
+        State sign = new State("sign", false);
+        Character[] digitsCharacter = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        for (Character c : digitsCharacter) {
+            digit.getTransitionTable().put(c, digit);
+            digit2.getTransitionTable().put(c, digit2);
+            digit3.getTransitionTable().put(c, digit3);
+            dot.getTransitionTable().put(c, digit2);
+            exposant.getTransitionTable().put(c, digit3);
+            sign.getTransitionTable().put(c,digit3);
+        }
+        digit.getTransitionTable().put('E', exposant);
+        digit.getTransitionTable().put('e', exposant);
+        digit2.getTransitionTable().put('E', exposant);
+        digit2.getTransitionTable().put('e', exposant);
+        digit.getTransitionTable().put('.', dot);
+        exposant.getTransitionTable().put('-', sign);
+        exposant.getTransitionTable().put('+', sign);
+
+        automate.addState(digit);
+        automate.addState(exposant);
+        automate.addState(digit2);
+        return automate;
+    }
+    @Test public void testAutomate() {
+        Automate digitTest = generateNumberCheckAutomate();
+        assertTrue("1234", digitTest.check("1234"));
+        assertTrue("12.34", digitTest.check("12.34"));
+        assertTrue("1e10", digitTest.check("1e10"));
+        assertTrue("1E10", digitTest.check("1E10"));
+        assertTrue("1.5e10", digitTest.check("1.5e10"));
+        assertTrue("1.5E10", digitTest.check("1.5E10"));
+        assertTrue("1.5e+10", digitTest.check("1.5e+10"));
+        assertTrue("1.5E+10", digitTest.check("1.5E+10"));
+        assertTrue("1.5e-10", digitTest.check("1.5e-10"));
+        assertTrue("1.5E-10", digitTest.check("1.5E-10"));
+        assertFalse("12a34", digitTest.check("12a34"));
+        assertFalse("12.", digitTest.check("12."));
+        assertFalse(".1", digitTest.check(".1"));
+        assertFalse("1ee10", digitTest.check("1ee10"));
+        assertFalse("E10", digitTest.check("E10"));
+        assertFalse("1.1.0", digitTest.check("1.1.0"));
     }
 }

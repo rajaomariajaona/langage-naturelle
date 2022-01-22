@@ -1,0 +1,14 @@
+@startuml
+    class Automate{
+        - List<State> states
+        - State initial
+        - bool checkInitialState(char c)
+        + bool check(String wordToCheck)
+    }
+    class State{
+        bool isFinal
+        String name
+        Map<Char, State> transitionTable
+    }
+
+@enduml
