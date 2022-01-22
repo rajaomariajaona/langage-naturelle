@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 public class AppTest {
     private Automate generateNumberCheckAutomate(){
         Automate automate = new Automate();
+        State initial = new State("no-state", false);
         State digit = new State("digit", true);
         State digit2 = new State("digit2", true);
         State digit3 = new State("digit3", true);
@@ -17,6 +18,7 @@ public class AppTest {
         State sign = new State("sign", false);
         Character[] digitsCharacter = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         for (Character c : digitsCharacter) {
+            initial.getTransitionTable().put(c,digit);
             digit.getTransitionTable().put(c, digit);
             digit2.getTransitionTable().put(c, digit2);
             digit3.getTransitionTable().put(c, digit3);
@@ -32,9 +34,13 @@ public class AppTest {
         exposant.getTransitionTable().put('-', sign);
         exposant.getTransitionTable().put('+', sign);
 
-        automate.addState(digit);
-        automate.addState(exposant);
-        automate.addState(digit2);
+        automate.getStates().add(digit);
+        automate.getStates().add(digit2);
+        automate.getStates().add(digit3);
+        automate.getStates().add(exposant);
+        automate.getStates().add(dot);
+        automate.getStates().add(sign);
+        automate.setInitial(initial);
         return automate;
     }
     @Test public void testAutomate() {
