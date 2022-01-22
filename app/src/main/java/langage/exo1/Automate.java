@@ -1,4 +1,4 @@
-package langage;
+package langage.exo1;
 
 import lombok.Getter;
 import lombok.Setter;

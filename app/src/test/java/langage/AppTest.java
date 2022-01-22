@@ -3,6 +3,8 @@
  */
 package langage;
 
+import langage.exo1.Automate;
+import langage.exo1.State;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
