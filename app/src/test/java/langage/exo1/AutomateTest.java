@@ -11,40 +11,45 @@ import static org.junit.Assert.*;
 public class AutomateTest {
     private Automate generateNumberCheckAutomate(){
         Automate automate = new Automate();
+        State sign = new State("sign", false);
         State initial = new State("no-state", false);
         State digit = new State("digit", true);
         State digit2 = new State("digit2", true);
         State digit3 = new State("digit3", true);
         State exposant = new State("exposant", false);
         State dot = new State("dot", false);
-        State sign = new State("sign", false);
+        State sign2 = new State("sign2", false);
         Character[] digitsCharacter = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        initial.getTransitionTable().put('-', sign);
+        initial.getTransitionTable().put('+', sign);
         for (Character c : digitsCharacter) {
+            sign.getTransitionTable().put(c, digit);
             initial.getTransitionTable().put(c,digit);
             digit.getTransitionTable().put(c, digit);
             digit2.getTransitionTable().put(c, digit2);
             digit3.getTransitionTable().put(c, digit3);
             dot.getTransitionTable().put(c, digit2);
             exposant.getTransitionTable().put(c, digit3);
-            sign.getTransitionTable().put(c,digit3);
+            sign2.getTransitionTable().put(c,digit3);
         }
         digit.getTransitionTable().put('E', exposant);
         digit.getTransitionTable().put('e', exposant);
         digit2.getTransitionTable().put('E', exposant);
         digit2.getTransitionTable().put('e', exposant);
         digit.getTransitionTable().put('.', dot);
-        exposant.getTransitionTable().put('-', sign);
-        exposant.getTransitionTable().put('+', sign);
+        exposant.getTransitionTable().put('-', sign2);
+        exposant.getTransitionTable().put('+', sign2);
 
         automate.getStates().add(digit);
         automate.getStates().add(digit2);
         automate.getStates().add(digit3);
         automate.getStates().add(exposant);
         automate.getStates().add(dot);
-        automate.getStates().add(sign);
+        automate.getStates().add(sign2);
         automate.setInitial(initial);
         return automate;
     }
+
     @Test public void testAutomate() {
         Automate digitTest = generateNumberCheckAutomate();
         assertTrue("1234", digitTest.check("1234"));
@@ -60,7 +65,7 @@ public class AutomateTest {
         assertFalse("12a34", digitTest.check("12a34"));
         assertFalse("12.", digitTest.check("12."));
         assertFalse(".1", digitTest.check(".1"));
-        assertFalse("1ee10", digitTest.check("1ee10"));
+        assertFalse("1e1e10", digitTest.check("1e1e10"));
         assertFalse("E10", digitTest.check("E10"));
         assertFalse("1.1.0", digitTest.check("1.1.0"));
     }
