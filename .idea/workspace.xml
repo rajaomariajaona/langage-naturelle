@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6ee26e1-bc76-4d7d-bf63-ea9f492038fd" name="Default Changelist" comment="folder move">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/langage/exo2/ParentheseChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/langage/exo2/ParentheseCheckerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/langage/exo1/AutomateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/langage/exo1/AutomateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conception.puml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,6 +216,7 @@
       <workItem from="1643702005930" duration="5000" />
       <workItem from="1643702261061" duration="314000" />
       <workItem from="1644493513004" duration="2505000" />
+      <workItem from="1648058756305" duration="35000" />
     </task>
     <task id="LOCAL-00001" summary="config vcs">
       <created>1642834518332</created>
